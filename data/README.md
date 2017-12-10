@@ -3,22 +3,27 @@ This directory holds (*after you download them*):
 - Caffe models pre-trained on ImageNet
 - Symlinks to datasets
 
-To download Fast R-CNN models (VGG_CNN_M_1024, VGG16) trained with OHEM on VOC 2007 trainval, run:
-
+To download Fast R-CNN models (VGG_CNN_M_1024, VGG16) trained on VOC 2007 trainval, run:
 ```
-./data/scripts/fetch_fast_rcnn_ohem_models.sh
+./data/scripts/fetch_fast_rcnn_models.sh
 ```
-
-This script will populate `data/fast_rcnn_ohem_models` with VGG16 and VGG_CNN_M_1024 models (Fast R-CNN detectors trained with OHEM).
-
 
 To download Caffe models (ZF, VGG16) pre-trained on ImageNet, run:
-
 ```
 ./data/scripts/fetch_imagenet_models.sh
 ```
-
 This script will populate `data/imagenet_models`.
+
+Pre-computed Selective Search boxes
+(Downloaded using data/fetch_selective_search_data.sh)
+* `./selective_search_boxes/voc_2007_train.mat`
+* `./selective_search_boxes/voc_2007_val.mat`
+* `./selective_search_boxes/voc_2007_trainval.mat`
+* `./selective_search_boxes/voc_2007_test.mat`
+* `./selective_search_boxes/voc_2012_train.mat`
+* `./selective_search_boxes/voc_2012_val.mat`
+* `./selective_search_boxes/voc_2012_trainval.mat`
+* `./selective_search_boxes/voc_2012_test.mat`
 
 In order to train and test with PASCAL VOC, you will need to establish symlinks.
 From the `data` directory (`cd data`):

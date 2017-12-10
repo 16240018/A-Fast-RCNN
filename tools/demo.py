@@ -70,6 +70,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
+    plt.show()
 
 def demo(net, image_name, classes):
     """Detect object classes in an image using pre-computed object proposals."""
@@ -145,5 +146,3 @@ if __name__ == '__main__':
     images_dir=os.path.join(cfg.ROOT_DIR, 'data', 'demo')
     for file in os.listdir(images_dir):
         if(file.endswith('.png')):demo(net, file[0:-4], ['car','sofa','tvmonitor'])
-
-    plt.show()

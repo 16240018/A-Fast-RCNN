@@ -55,4 +55,4 @@ It includes 3-stage of training:
 ./copy_model.h
 ./experiments/scripts/fast_rcnn_adv.sh [GPU_ID] VGG16 pascal_voc
 ```
-which is joint training of the detector and the adversarial network, you can download all of them from my [Baidu cloud disk](https://www.dropbox.com/s/5wvxh8g5n3ewvp4/fast_rcnn_adv_iter_40000.caffemodel?dl=0).
+All output training files and logs can be downloaded from my [Baidu cloud disk](https://www.dropbox.com/s/5wvxh8g5n3ewvp4/fast_rcnn_adv_iter_40000.caffemodel?dl=0).

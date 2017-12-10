@@ -5,7 +5,7 @@
 # ---------------------------------------------------------
 
 import numpy as np
-import cPickle
+import pickle
 import os
 from IPython.core.debugger import Tracer
 import scipy.io as scio
@@ -16,12 +16,12 @@ def tic_toc_print(interval, string):
   global tic_toc_print_time_old
   if 'tic_toc_print_time_old' not in globals():
     tic_toc_print_time_old = time.time()
-    print string
+    print(string)
   else:
     new_time = time.time()
     if new_time - tic_toc_print_time_old > interval:
       tic_toc_print_time_old = new_time;
-      print string
+      print(string)
 
 def mkdir_if_missing(output_dir):
   """
@@ -50,10 +50,10 @@ def save_variables(pickle_file_name, var, info, overwrite = False):
   # Construct the dictionary
   assert(type(var) == list); assert(type(info) == list);
   d = {}
-  for i in xrange(len(var)):
+  for i in range(len(var)):
     d[info[i]] = var[i]
   with open(pickle_file_name, 'wb') as f:
-    cPickle.dump(d, f, cPickle.HIGHEST_PROTOCOL)
+    pickle.dump(d, f, pickle.HIGHEST_PROTOCOL)
 
 def load_variables(pickle_file_name):
   """
@@ -63,7 +63,7 @@ def load_variables(pickle_file_name):
   """
   if os.path.exists(pickle_file_name):
     with open(pickle_file_name, 'rb') as f:
-      d = cPickle.load(f)
+      d = pickle.load(f)
     return d
   else:
     raise Exception('{:s} does not exists.'.format(pickle_file_name))

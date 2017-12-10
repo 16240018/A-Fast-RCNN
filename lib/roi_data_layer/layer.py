@@ -83,7 +83,7 @@ class RoIDataLayer(caffe.Layer):
             self._prefetch_process.start()
             # Terminate the child process when the parent exists
             def cleanup():
-                print 'Terminating BlobFetcher'
+                print('Terminating BlobFetcher')
                 self._prefetch_process.terminate()
                 self._prefetch_process.join()
             import atexit
@@ -93,7 +93,7 @@ class RoIDataLayer(caffe.Layer):
         """Setup the RoIDataLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         self._num_classes = layer_params['num_classes']
 
@@ -145,14 +145,14 @@ class RoIDataLayer(caffe.Layer):
                 self._name_to_top_map['bbox_outside_weights'] = idx
                 idx += 1
 
-        print 'RoiDataLayer: name_to_top:', self._name_to_top_map
+        print('RoiDataLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
     def forward(self, bottom, top):
         """Get blobs and copy them into this layer's top blob vector."""
         blobs = self._get_next_minibatch()
 
-        for blob_name, blob in blobs.iteritems():
+        for blob_name, blob in blobs.items():
             top_ind = self._name_to_top_map[blob_name]
             # Reshape net's input blobs
             top[top_ind].reshape(*(blob.shape))
@@ -173,7 +173,7 @@ class OHEMDataLayer(caffe.Layer):
         """Setup the OHEMDataLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         self._num_classes = layer_params['num_classes']
         self._iter_size = layer_params['iter_size']
@@ -232,7 +232,7 @@ class OHEMDataLayer(caffe.Layer):
             idx += 1
 
 
-        print 'OHEMDataLayer: name_to_top:', self._name_to_top_map
+        print('OHEMDataLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
     def forward(self, bottom, top):
@@ -286,7 +286,7 @@ class OHEMDataLayer(caffe.Layer):
         else:
             blobs, hard_inds = get_ohem_minibatch_ratio(loss, rois, labels, bbox_target, bbox_inside_weights, bbox_outside_weights, ratio=cfg.TRAIN.OHEM_RATIO, hard_negative=cfg.TRAIN.OHEM_HARD_NEG)
         
-        for blob_name, blob in blobs.iteritems():
+        for blob_name, blob in blobs.items():
             top_ind = self._name_to_top_map[blob_name]
             # Reshape net's input blobs
             top[top_ind].reshape(*(blob.shape))
@@ -316,7 +316,7 @@ class ASDNPretrainLossLayer(caffe.Layer):
         """Setup the ASDNPretrainLossLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
         self._num_classes = layer_params['num_classes']
         self._drop_neg = layer_params['drop_neg']
 
@@ -344,7 +344,7 @@ class ASDNPretrainLossLayer(caffe.Layer):
 
         top[0].reshape(1)
 
-        print 'ASDNPretrainLossLayer: name_to_top:', self._name_to_top_map
+        print('ASDNPretrainLossLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
     def forward(self, bottom, top):
@@ -365,7 +365,7 @@ class ASDNPretrainLossLayer(caffe.Layer):
 
         prop = np.reshape(prop, (N2, self._num_classes))
 
-        attempts = N2 / N
+        attempts = int(N2 / N)
         pool_len = bottom[0].shape[2]
 
         count_bit = 1 
@@ -377,7 +377,7 @@ class ASDNPretrainLossLayer(caffe.Layer):
         for i in range(N):
             min_prop = 1e6
             min_id   = 0 
-            nowlbl = labels_pos[i]
+            nowlbl = int(labels_pos[i])
             assert(nowlbl > 0)
             for j in range(attempts):
                 if min_prop > prop[j * N + i][nowlbl]: 
@@ -496,7 +496,7 @@ class ASDNPretrainLabelLayer(caffe.Layer):
         """Setup the ASDNDataLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         # mask_pred 1 means block, 0 means maintain 
 
@@ -517,7 +517,7 @@ class ASDNPretrainLabelLayer(caffe.Layer):
         top[2].reshape(*(bottom[2].data.shape))
 
 
-        print 'ASDNPretrainLabelLayer: name_to_top:', self._name_to_top_map
+        print('ASDNPretrainLabelLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
 
@@ -581,7 +581,7 @@ class ASDNPretrainDataLayer(caffe.Layer):
         """Setup the ASDNDataLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         self._drop_size  = layer_params['drop_size']
         self._drop_stride  = layer_params['drop_stride']
@@ -601,7 +601,7 @@ class ASDNPretrainDataLayer(caffe.Layer):
         top[0].reshape(*(bottom[0].data.shape))
         top[1].reshape(*(bottom[0].data.shape))
 
-        print 'ASDNPretrainDataLayer: name_to_top:', self._name_to_top_map
+        print('ASDNPretrainDataLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
 
@@ -678,7 +678,7 @@ class ASDNLossLayer(caffe.Layer):
         """Setup the ASDNLossLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         self._num_classes = layer_params['num_classes']
         self._score_thres = layer_params['score_thres']
@@ -710,7 +710,7 @@ class ASDNLossLayer(caffe.Layer):
 
         top[0].reshape(1)
 
-        print 'ASDNLossLayer: name_to_top:', self._name_to_top_map
+        print('ASDNLossLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
     def forward(self, bottom, top):
@@ -758,7 +758,7 @@ class ASDNLossLayer(caffe.Layer):
         df[...] = (dlZ - t*mask) / count_bit
 
         for i in range(N):
-            lbl = labels[i]
+            lbl = int(labels[i])
             prop_before_select = prop_before[i][lbl]
             prop_after_select = prop_after[i][lbl]
 
@@ -783,7 +783,7 @@ class ASDNLossLayer(caffe.Layer):
             cnt = 0 
             for i in range(N):
                 print_id = i
-                lbl = labels[i]
+                lbl = int(labels[i])
                 prop_before_select = prop_before[i][lbl]
                 prop_after_select = prop_after[i][lbl]
 
@@ -857,7 +857,7 @@ class ASDNDataLayer(caffe.Layer):
         """Setup the ASDNDataLayer."""
 
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)
+        layer_params = yaml.load(self.param_str)
 
         self._count_drop  = layer_params['count_drop']
         self._permute_count  = layer_params['permute_count']
@@ -888,7 +888,7 @@ class ASDNDataLayer(caffe.Layer):
         top[1].reshape(bottom[0].data.shape[0], self._channels, bottom[0].data.shape[2], bottom[0].data.shape[3])
 
 
-        print 'ASDNDataLayer: name_to_top:', self._name_to_top_map
+        print('ASDNDataLayer: name_to_top:', self._name_to_top_map)
         assert len(top) == len(self._name_to_top_map)
 
 
@@ -1038,7 +1038,7 @@ class BlobFetcher(Process):
         return db_inds
 
     def run(self):
-        print 'BlobFetcher started'
+        print('BlobFetcher started')
         while True:
             db_inds = self._get_next_minibatch_inds()
             minibatch_db = [self._roidb[i] for i in db_inds]

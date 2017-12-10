@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 # --------------------------------------------------------
-# Fast R-CNN with OHEM
+# Fast R-CNN
+# Copyright (c) 2015 Microsoft
 # Licensed under The MIT License [see LICENSE for details]
-# Written by Ross Girshick and Abhinav Shrivastava
+# Written by Ross Girshick
 # --------------------------------------------------------
 
 """Test a Fast R-CNN network on an image database."""
@@ -89,4 +90,4 @@ if __name__ == '__main__':
     if not cfg.TEST.HAS_RPN:
         imdb.set_proposal_method(cfg.TEST.PROPOSAL_METHOD)
 
-    test_net(net, imdb, max_per_image=args.max_per_image, vis=args.vis, thresh=args.det_thresh)
+    test_net(net, imdb, max_per_image=args.max_per_image, vis=args.vis)

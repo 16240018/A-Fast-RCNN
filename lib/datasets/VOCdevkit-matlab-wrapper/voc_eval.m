@@ -2,6 +2,7 @@ function res = voc_eval(path, comp_id, test_set, output_dir)
 
 VOCopts = get_voc_opts(path);
 VOCopts.testset = test_set;
+VOCopts.detrespath=[VOCopts.resdir 'Main/%s_det_' VOCopts.testset '_%s.txt'];
 
 for i = 1:length(VOCopts.classes)
   cls = VOCopts.classes{i};

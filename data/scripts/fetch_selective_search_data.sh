@@ -1,11 +1,10 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
-FILE=selective_search_data.tgz
-URL=https://dl.dropboxusercontent.com/s/orrt7o6bp6ae0tc/selective_search_data.tgz
-CHECKSUM=7078c1db87a7851b31966b96774cd9b9
+FILE=r-cnn-release1-selective-search.tgz
+CHECKSUM=6cf6df219c1e514f64482f11d00bd0b4
 
 if [ -f $FILE ]; then
   echo "File already exists. Checking md5..."
@@ -16,16 +15,16 @@ if [ -f $FILE ]; then
     checksum=`cat $FILE | md5`
   fi
   if [ "$checksum" = "$CHECKSUM" ]; then
-    echo "Checksum is correct. No need to download."
+    echo "Model checksum is correct. No need to download."
     exit 0
   else
-    echo "Checksum is incorrect. Need to download again."
+    echo "Model checksum is incorrect. Need to download again."
   fi
 fi
 
-echo "Downloading precomputed selective search boxes (0.5G)..."
+echo "Downloading precomputed selective search boxes (1.8G)..."
 
-wget $URL -O $FILE
+wget https://dl.dropboxusercontent.com/s/uf2i1y2oee7c6n1/r-cnn-release1-selective-search.tgz
 
 echo "Unzipping..."
 

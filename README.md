@@ -37,8 +37,12 @@ This implementation is built on a *fork* of the OHEM code ([here](https://github
 
 
 ### Installation
-
-Please follow the exact installation and download the VOC data as the Faster R-CNN Python code ([here](https://github.com/rbgirshick/py-faster-rcnn)).
+- Step 1:
+  Download the selective search data by running script 'data/script/fetch_selective_search_data.sh'.
+- Step 2:
+  Download the caffemodel by running script 'data/script/fetch_imagenet_models.sh'.
+- Step 3:
+  Create the link to VOCdevkit.You can find the details from ['data/README.md'](https://github.com/NB-Dragon/A-Fast-RCNN/blob/master/data/README.md).
 
 ### Usage
 

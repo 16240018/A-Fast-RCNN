@@ -4,7 +4,7 @@ import numpy as np
 import datetime
 import time
 from collections import defaultdict
-import mask
+from . import mask
 import copy
 
 class COCOeval:
